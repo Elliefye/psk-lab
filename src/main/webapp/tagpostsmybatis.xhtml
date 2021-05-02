@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head/>
+<h:body>
+    <header>
+        <h:link value="All blogs" outcome="index"/>
+        <h:link value="All tags" outcome="tags"/>
+    </header>
+    <h2>All posts tagged #{tagPostsMyBatis.tag.name}</h2>
+    <ul>
+        <ui:repeat value="#{tagPostsMyBatis.tag.posts}" var="post">
+            <li>
+                <h3>#{post.title}, #{post.date}</h3>
+                <p>#{post.body}</p>
+            </li>
+        </ui:repeat>
+    </ul>
+</h:body>
+</html>

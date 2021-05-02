@@ -9,6 +9,7 @@
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <collection property="posts" ofType="lt.vu.mybatis.model.Post" javaType="ArrayList" column="ID" select="selectPostsForTag"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -56,5 +57,11 @@
     -->
     select ID, NAME
     from PUBLIC.TAG
+  </select>
+  <select id="selectPostsForTag" resultType="lt.vu.mybatis.model.Post">
+    SELECT p.TITLE, p.BODY, p.DATE
+    FROM POST p
+           JOIN POST_TAG pt on p.ID = pt.POST_ID
+    WHERE pt.TAG_ID = #{ID, jdbcType=INTEGER}
   </select>
 </mapper>
