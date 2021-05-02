@@ -1,0 +1,10 @@
+<datasources>
+    <datasource jndi-name="BlogDataSource" pool-name="BlogDataSource">
+        <driver>h2</driver>
+        <connection-url>jdbc:h2:C:/Users/Elina/Desktop/projects/BlogDB.db</connection-url>
+        <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+        </security>
+    </datasource>
+</datasources>

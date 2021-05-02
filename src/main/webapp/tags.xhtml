@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>All tags</title>
+</h:head>
+<h:body>
+    <header>
+        <h:link value="All blogs" outcome="index"/>
+        <h:link value="All tags" outcome="tags"/>
+    </header>
+    <h2>All tags</h2>
+    <ol>
+        <ui:repeat value="#{tags.allTags}" var="tag">
+            <li>#{tag.name}</li>
+        </ui:repeat>
+    </ol>
+    <h2>Create a new tag</h2>
+    <h:form>
+        <label for="name">Name</label> <br/>
+        <h:inputText id="name" value="#{tags.tagToCreate.name}" required="true" />
+        <h:commandButton value="Add" action="#{tags.createTag}" />
+    </h:form>
+</h:body>
+</html>

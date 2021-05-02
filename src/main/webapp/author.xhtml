@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:head/>
+<h:body>
+    <header>
+        <h:link value="All blogs" outcome="index"/>
+        <h:link value="All tags" outcome="tags"/>
+    </header>
+    <h2>#{authorPosts.author.username} blog:</h2>
+    <ul>
+        <ui:repeat value="#{authorPosts.author.posts}" var="p">
+            <li>
+                <h3>#{p.title}, #{p.date}</h3>
+                <p>#{p.body}</p>
+                <ul>
+                    <ui:repeat value="#{p.tags}" var = "t">
+                        <li>#{t.name}</li>
+                    </ui:repeat>
+                </ul>
+            </li>
+        </ui:repeat>
+    </ul>
+    <h2>Add a new post</h2>
+    <h:form>
+        <label for="title">Title</label> <br/>
+        <h:inputText id="title" value="#{authorPosts.postToCreate.title}" required="true" /> <br/>
+        <label for="body">Body</label> <br/>
+        <h:inputText id="body" value="#{authorPosts.postToCreate.body}" required="true" /> <br/>
+        <h:selectManyCheckbox  value="#{authorPosts.postToCreate.tags}">
+            <f:selectItems value="#{tags.allTags}" var="tag" itemValue="#{tag}" itemLabel="#{tag.name}"/>
+        </h:selectManyCheckbox><br/>
+        <h:commandButton action="#{authorPosts.createPost}" value="Post">
+            <f:param name="id" value="#{authorPosts.author.id}" />
+        </h:commandButton>
+    </h:form>
+</h:body>
+</html>
