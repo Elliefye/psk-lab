@@ -10,4 +10,7 @@
     <decorators>
         <class>lt.vu.decorators.ThemeGetterDecorator</class>
     </decorators>
+    <alternatives>
+        <class>lt.vu.persistence.TravelPostDAO</class>
+    </alternatives>
 </beans>

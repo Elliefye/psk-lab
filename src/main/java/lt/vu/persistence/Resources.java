@@ -1,5 +1,7 @@
 package lt.vu.persistence;
 
+import lt.vu.services.Async;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
@@ -9,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.SynchronizationType;
+import javax.transaction.TransactionScoped;
 
 @ApplicationScoped
 public class Resources {
@@ -20,6 +23,13 @@ public class Resources {
     @Default
     @RequestScoped
     private EntityManager createJTAEntityManager() {
+        return emf.createEntityManager(SynchronizationType.SYNCHRONIZED);
+    }
+
+    @Produces
+    @TransactionScoped
+    @Async
+    private EntityManager createJTATransactionalEM() {
         return emf.createEntityManager(SynchronizationType.SYNCHRONIZED);
     }
 
