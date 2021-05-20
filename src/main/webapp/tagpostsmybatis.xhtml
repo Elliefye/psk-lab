@@ -9,7 +9,7 @@
         <h:link value="All blogs" outcome="index"/>
         <h:link value="All tags" outcome="tags"/>
     </header>
-    <h2>All posts tagged #{tagPostsMyBatis.tag.name}</h2>
+    <h2>#{tagPostsMyBatis.tag.posts.size()} posts tagged #{tagPostsMyBatis.tag.name}</h2>
     <ul>
         <ui:repeat value="#{tagPostsMyBatis.tag.posts}" var="post">
             <li>
