@@ -14,6 +14,8 @@ public class PostDTO {
     private Date date;
     private AuthorDTO author;
 
+    public PostDTO() {}
+
     public PostDTO(Integer id, String title, String body, Date date, AuthorDTO author) {
         this.id = id;
         this.title = title;
