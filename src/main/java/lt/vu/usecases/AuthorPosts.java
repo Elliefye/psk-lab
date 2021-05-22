@@ -3,6 +3,7 @@ package lt.vu.usecases;
 import lombok.Getter;
 import lombok.Setter;
 
+import lt.vu.decorators.IThemes;
 import lt.vu.entities.Author;
 import lt.vu.entities.Post;
 import lt.vu.persistence.AuthorDAO;
@@ -26,6 +27,9 @@ public class AuthorPosts implements Serializable {
     @Inject
     private PostDAO postDAO;
 
+    @Inject
+    private IThemes themeGetter;
+
     @Getter
     private Author author;
 
@@ -38,6 +42,7 @@ public class AuthorPosts implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int authorId = Integer.parseInt(requestParameters.get("id"));
         this.author = authorDAO.getById(authorId);
+        themeGetter.getCommonTheme(author);
     }
 
     @Transactional

@@ -32,6 +32,10 @@ public class Author implements Serializable {
     @Column(name = "DATE_JOINED", nullable = true)
     private Date dateJoined;
 
+    @Version
+    @Column(name = "VERSION")
+    private Integer version;
+
     @OneToMany(mappedBy="author")
     private List<Post> posts;
 

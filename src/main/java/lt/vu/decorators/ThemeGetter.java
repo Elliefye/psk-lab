@@ -12,7 +12,7 @@ import java.util.*;
 public class ThemeGetter implements IThemes, Serializable {
     public String getCommonTheme(Author author) {
         if (author.getPosts().isEmpty()) {
-            return null;
+            return author.getUsername() + " doesn't have any posts.";
         }
 
         HashMap<String, Integer> tags = new HashMap<String, Integer>();
@@ -30,6 +30,6 @@ public class ThemeGetter implements IThemes, Serializable {
                         e1.getValue().compareTo(e2.getValue())
                 );
 
-        return mostCommon.map(Map.Entry::getKey).orElse(null);
+        return mostCommon.map(Map.Entry::getKey).orElse(author.getUsername() + " doesn't have any posts.");
     }
 }

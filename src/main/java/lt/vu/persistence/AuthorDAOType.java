@@ -14,19 +14,19 @@ import java.util.List;
 @ApplicationScoped
 public class AuthorDAOType extends AuthorDAO {
     @PostConstruct
-    private void LogAuthortype(Author author) {
+    private void LogAuthorType(Author author) {
         if (author.getDateJoined().before(Date.valueOf(LocalDate.of(2020, 1, 1)))) {
-            System.out.println("Author " + author.getUsername() + "is an legacy user.");
+            System.out.println("Author " + author.getUsername() + " is an legacy user.");
         }
         else {
-            System.out.println("Author " + author.getUsername() + "is an new user.");
+            System.out.println("Author " + author.getUsername() + " is an new user.");
         }
     }
 
     @Override
     public void persist(Author author){
         super.persist(author);
-        LogAuthortype(author);
+        LogAuthorType(author);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class AuthorDAOType extends AuthorDAO {
         List<Author> authors = super.getAll();
 
         for(Author a: authors) {
-            LogAuthortype(a);
+            LogAuthorType(a);
         }
         return authors;
     }
@@ -42,7 +42,7 @@ public class AuthorDAOType extends AuthorDAO {
     @Override
     public Author getById(int id){
         Author author = super.getById(id);
-        LogAuthortype(author);
+        LogAuthorType(author);
         return author;
     }
 }

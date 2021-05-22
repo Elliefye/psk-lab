@@ -38,5 +38,21 @@
             <f:param name="id" value="#{authorPosts.author.id}" />
         </h:commandButton>
     </h:form>
+    <br/>
+    <h:form>
+        <h:commandButton value="Update username" action="#{updateAuthorUsername.test()}" >
+            <f:param name="id" value="#{authorPosts.author.id}"/>
+        </h:commandButton><br/>
+        <h:outputText value="#{updateAuthorUsername.update1Status}" /><br/>
+        <h:outputText value="#{updateAuthorUsername.update2Status}" />
+    </h:form>
+    <br/>
+    <h:form>
+        <h:outputText value="#{karma.karmaCalculatorStatus()}"/><br/>
+        <h:commandButton value="Calculate karma for #{authorPosts.author.username}"
+                         disabled="#{karma.calculatingKarma}" action="#{karma.calculateKarma()}">
+            <f:param name="id" value="#{authorPosts.author.id}" />
+        </h:commandButton>
+    </h:form>
 </h:body>
 </html>
