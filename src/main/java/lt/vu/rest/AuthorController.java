@@ -2,8 +2,8 @@ package lt.vu.rest;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.services.PostService;
-import lt.vu.entities.Post;
+import lt.vu.entities.Author;
+import lt.vu.services.AuthorService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,26 +15,21 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @ApplicationScoped
-@Path("/posts")
-public class PostController {
-
+@Path("/authors")
+public class AuthorController {
     @Inject
-    @Setter @Getter
-    private PostService postService;
+    @Setter
+    @Getter
+    private AuthorService authorService;
 
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") final Integer id) {
         try {
-            Post post = postService.get(id);
-            PostDTO postDTO = new PostDTO(
-                    post.getId(),
-                    post.getTitle(),
-                    post.getBody(),
-                    post.getDate(),
-                    new AuthorDTO(post.getAuthor().getId(), post.getAuthor().getUsername(), post.getAuthor().getDateJoined()));
-            return Response.ok(postDTO).build();
+            Author author = authorService.get(id);
+            AuthorDTO authorDTO = new AuthorDTO(author.getId(), author.getUsername(), author.getDateJoined());
+            return Response.ok(authorDTO).build();
         } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -44,9 +39,9 @@ public class PostController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response update(PostDTO postDTO) {
+    public Response update(AuthorDTO authorDTO) {
         try {
-            postService.updateFromDTO(postDTO);
+            authorService.updateFromDTO(authorDTO);
             return Response.ok().build();
         }
         catch (OptimisticLockException e) {
@@ -61,9 +56,9 @@ public class PostController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response create(PostDTO postDTO) {
+    public Response create(AuthorDTO authorDTO) {
         try {
-            postService.saveFromDTO(postDTO);
+            authorService.saveFromDTO(authorDTO);
             return Response.ok().build();
         }
         catch (OptimisticLockException | EntityExistsException e) {

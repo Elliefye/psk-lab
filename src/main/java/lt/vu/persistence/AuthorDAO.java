@@ -1,6 +1,7 @@
 package lt.vu.persistence;
 
 import lt.vu.entities.Author;
+import lt.vu.entities.Post;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,6 +19,10 @@ public class AuthorDAO {
 
     public Author getById(int id){
         return em.find(Author.class, id);
+    }
+
+    public Author update(Author author){
+        return em.merge(author);
     }
 
     public List<Author> getAll() {
