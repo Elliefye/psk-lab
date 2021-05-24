@@ -1,7 +1,6 @@
 package lt.vu.usecases;
 
 import lt.vu.services.AuthorUsernameUpdateAsync;
-import lt.vu.services.PostTitleUpdateAsync;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -33,8 +32,8 @@ public class UpdateAuthorUsername implements Serializable {
     }
 
     public String test(){
-        update1 = CompletableFuture.supplyAsync(() -> usernameUpdater.update(authorId,"NewUsername", 0, 1000));
-        update2 = CompletableFuture.supplyAsync(() -> usernameUpdater.update(authorId,"AnotherUsername", 200, 100));
+        update1 = CompletableFuture.supplyAsync(() -> usernameUpdater.update(authorId,"username1", 0, 1000));
+        update2 = CompletableFuture.supplyAsync(() -> usernameUpdater.update(authorId,"username2", 200, 100));
         return "author?id=" + this.authorId + "&faces-redirect=true";
     }
 

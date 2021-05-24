@@ -17,7 +17,7 @@ public class ThemeGetterDecorator implements IThemes{
     public String getCommonTheme(Author author) {
         String mostCommon = themeGetter.getCommonTheme(author);
 
-        if(mostCommon.equals("travel")) {
+        if(mostCommon.equals("Travel")) {
             System.out.println(author.getUsername() + " has posts about travel.");
         }
 

@@ -6,7 +6,9 @@ import lombok.Setter;
 import lt.vu.decorators.IThemes;
 import lt.vu.entities.Author;
 import lt.vu.entities.Post;
+import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.AuthorDAO;
+import lt.vu.persistence.IPostDAO;
 import lt.vu.persistence.PostDAO;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +19,7 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @Model
@@ -25,7 +28,7 @@ public class AuthorPosts implements Serializable {
     private AuthorDAO authorDAO;
 
     @Inject
-    private PostDAO postDAO;
+    private IPostDAO postDAO;
 
     @Inject
     private IThemes themeGetter;
@@ -42,9 +45,10 @@ public class AuthorPosts implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int authorId = Integer.parseInt(requestParameters.get("id"));
         this.author = authorDAO.getById(authorId);
-        themeGetter.getCommonTheme(author);
+        System.out.println(themeGetter.getCommonTheme(author));
     }
 
+    @LoggedInvocation
     @Transactional
     public String createPost() {
         postToCreate.setAuthor(this.author);
@@ -52,5 +56,9 @@ public class AuthorPosts implements Serializable {
         postDAO.persist(postToCreate);
         postToCreate = new Post();
         return "author?faces-redirect=true&id=" + author.getId();
+    }
+
+    public List<Post> getAllPosts() {
+        return postDAO.loadAll();
     }
 }

@@ -1,9 +1,11 @@
 package lt.vu.persistence;
 
 import lt.vu.entities.Post;
+import lt.vu.entities.Tag;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,10 +13,15 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class RantPostDAO extends PostDAO implements IPostDAO {
 
+    @Inject
+    private TagDAO tagDAO;
+
     @Override
-    public List<Post> loadAll() {
-        return super.loadAll().stream()
-                .filter(p -> p.getTags().stream().anyMatch(t -> t.getName().equals("rant")))
-                .collect(Collectors.toList());
+    public void persist(Post post) {
+        List <Tag> tags = post.getTags();
+        tags.add(tagDAO.findOne(3));
+        post.setTags(tags);
+        System.out.println("Persisted a ramble post.");
+        super.persist(post);
     }
 }

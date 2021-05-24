@@ -12,9 +12,7 @@ public class PostDAO implements IPostDAO {
     @Inject
     private EntityManager em;
 
-    public void persist(Post post){
-        this.em.persist(post);
-    }
+    public void persist(Post post){ this.em.persist(post); }
 
     public Post getById(int id){
         return em.find(Post.class, id);

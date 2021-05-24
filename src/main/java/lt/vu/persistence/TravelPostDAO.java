@@ -1,9 +1,12 @@
 package lt.vu.persistence;
 
 import lt.vu.entities.Post;
+import lt.vu.entities.Tag;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,10 +14,15 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class TravelPostDAO extends PostDAO implements IPostDAO {
 
+    @Inject
+    private TagDAO tagDAO;
+
     @Override
-    public List<Post> loadAll() {
-        return super.loadAll().stream()
-                .filter(p -> p.getTags().stream().anyMatch(t -> t.getName().equals("travel")))
-                .collect(Collectors.toList());
+    public void persist(Post post) {
+        List <Tag> tags = post.getTags();
+        tags.add(tagDAO.findOne(2));
+        post.setTags(tags);
+        System.out.println("Persisted a travel post.");
+        super.persist(post);
     }
 }
